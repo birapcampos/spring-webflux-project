@@ -1,0 +1,9 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: "webflux-exemplo"
+  data:
+    mongodb:
+      uri: mongodb+srv://birapcampos:<password>@webfluxcluster.le9ykia.mongodb.net/webflux-course?retryWrites=true&w=majority&appName=webfluxCluster
+
