@@ -1,5 +1,6 @@
 package br.com.birapcampos.webflux_exemplo.service;
 
+import br.com.birapcampos.webflux_exemplo.controller.exception.ObjectNotFoundException;
 import br.com.birapcampos.webflux_exemplo.entity.User;
 import br.com.birapcampos.webflux_exemplo.mapper.UserMapper;
 import br.com.birapcampos.webflux_exemplo.model.request.UserRequest;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import static java.lang.String.format;
 
 @Service
 public class UserService {
@@ -27,7 +30,12 @@ public class UserService {
     }
 
     public Mono<User> findById(final String id){
-        return userRepository.findById(id);
+
+        return userRepository.findById(id).switchIfEmpty(Mono.error(
+                new ObjectNotFoundException(
+                        format("Object not found. id: %s, Type: %s",id,User.class.getSimpleName())
+                )
+        ));
     }
 
     public Flux<User> findAll(){

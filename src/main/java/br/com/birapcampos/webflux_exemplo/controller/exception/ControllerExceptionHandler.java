@@ -31,6 +31,22 @@ public class ControllerExceptionHandler {
                         .build()));
     }
 
+    @ExceptionHandler(ObjectNotFoundException.class)
+    ResponseEntity<Mono<StandardError>> objectNotFoundException(
+            ObjectNotFoundException ex,
+            ServerWebExchange exchange
+    )
+    {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Mono.just(StandardError.builder()
+                        .timestamp(LocalDateTime.now())
+                        .status(HttpStatus.NOT_FOUND.value())
+                        .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                        .errormessage(ex.getMessage())
+                        .path(exchange.getRequest().getPath().toString())
+                        .build()));
+    }
+
     @ExceptionHandler(WebExchangeBindException.class)
     public ResponseEntity<Mono<ValidationError>> validationError(
             WebExchangeBindException ex,
@@ -48,6 +64,7 @@ public class ControllerExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Mono.just(error));
     }
+
 
 
 
