@@ -1,7 +1,10 @@
 package br.com.birapcampos.webflux_exemplo.controller;
 
+import br.com.birapcampos.webflux_exemplo.model.request.UserRequest;
+import br.com.birapcampos.webflux_exemplo.model.response.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface UserController {
