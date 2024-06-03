@@ -1,6 +1,7 @@
 package br.com.birapcampos.webflux_exemplo.controller.impl;
 
 import br.com.birapcampos.webflux_exemplo.controller.UserController;
+import br.com.birapcampos.webflux_exemplo.mapper.UserMapper;
 import br.com.birapcampos.webflux_exemplo.model.request.UserRequest;
 import br.com.birapcampos.webflux_exemplo.model.response.UserResponse;
 import br.com.birapcampos.webflux_exemplo.service.UserService;
@@ -17,10 +18,12 @@ import reactor.core.publisher.Mono;
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserControllerImpl(UserService userService) {
+    public UserControllerImpl(UserService userService,UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -30,14 +33,15 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<Mono<UserResponse>> find(String id) {
-
-        return null;
+    public ResponseEntity<Mono<UserResponse>> findById(String id) {
+        return ResponseEntity.ok().body(
+                userService.findById(id)
+                        .map(userMapper::toResponse));
     }
 
     @Override
     public ResponseEntity<Flux<UserResponse>> findAll() {
-        return null;
+        return ResponseEntity.ok().body(userService.findAll().map(userMapper::toResponse));
     }
 
     @Override

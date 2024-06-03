@@ -6,6 +6,7 @@ import br.com.birapcampos.webflux_exemplo.model.request.UserRequest;
 import br.com.birapcampos.webflux_exemplo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -23,6 +24,14 @@ public class UserService {
     public Mono<User> save(final UserRequest request){
 
         return userRepository.save(userMapper.toEntity(request));
+    }
+
+    public Mono<User> findById(final String id){
+        return userRepository.findById(id);
+    }
+
+    public Flux<User> findAll(){
+        return userRepository.findAll();
     }
 
 }
