@@ -5,7 +5,6 @@ import br.com.birapcampos.webflux_exemplo.mapper.UserMapper;
 import br.com.birapcampos.webflux_exemplo.model.request.UserRequest;
 import br.com.birapcampos.webflux_exemplo.model.response.UserResponse;
 import br.com.birapcampos.webflux_exemplo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +19,6 @@ public class UserControllerImpl implements UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @Autowired
     public UserControllerImpl(UserService userService,UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
