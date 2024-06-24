@@ -1,4 +1,4 @@
-package br.com.birapcampos.webflux_exemplo.controller.impl;
+package br.com.birapcampos.webflux_exemplo.controller;
 
 import br.com.birapcampos.webflux_exemplo.controller.UserController;
 import br.com.birapcampos.webflux_exemplo.mapper.UserMapper;
